@@ -1,5 +1,5 @@
 import './App.css';
-import Home from './components/Home';
+import Home from './components/Home/Home';
 import SignIn from './components/SignIn/SignIn'
 import SignUp from './components/SignUp/SignUp'
 import Profile from './components/Profile/Profile'
