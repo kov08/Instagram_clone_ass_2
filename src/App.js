@@ -5,6 +5,8 @@ import SignUp from './components/SignUp/SignUp'
 import Profile from './components/Profile/Profile'
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path='/signup' element={<SignUp/>}></Route>
           <Route path='/profile' element={<Profile/>}></Route>
         </Routes>
+        <ToastContainer
+        theme='dark' />
       </div>
     </BrowserRouter>
     
