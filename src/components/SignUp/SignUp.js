@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import logo from '../../img/Logo-Instagram.png'
 import './styles.css'
 
 export default function SignUp() {
+  // const fetchData = async()=>{
+  //   const response = await fetch("http://localhost:5000/");
+  //   const data = await response.json()
+  //   console.log(data)
+  // }
+  //   useEffect(()=>{
+  //   fetchData()
+  // }, [])
+
+
+  
   return (
     <div className='signUp'>
       <div className="form-container">
