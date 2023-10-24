@@ -13,6 +13,7 @@ export default function Navbar() {
             <Link to="SignIn"><li>Sign In</li></Link>
             <Link to="SignUp"><li>Sign Up</li></Link>
             <Link to="Profile"><li>Profile</li></Link>
+            <Link to="Createpost"><li>Create Post</li></Link>
         </ul>        
     </div>
   )
