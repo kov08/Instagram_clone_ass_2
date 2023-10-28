@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import logo from '../../img/Logo-Instagram.png'
 import './styles.css'
+import { LoginContext } from '../../context/LoginContext';
 
 export default function SignIn() {
+  const {setUserLogin} = useContext(LoginContext)
+  
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -42,10 +45,15 @@ export default function SignIn() {
       if(data.error){
         notify_error(data.error)}
       else{
-        notify_success(data.message)
         navigate("/")
+        // notify_success(data.message)
+        notify_success("Signin Successfully")
+        // console.log(data)
+        localStorage.setItem("jwt",data)
+        setUserLogin(true)
       }
-      console.log(data)})
+      // console.log(data)
+    })
   }
 
   return (

@@ -1,8 +1,23 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 
 import './styles.css'
 
 export default function Profile() {
+  const [pic, setPic] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:5000/myposts",{
+      headers:{
+        Authorization: "Bearer "+localStorage.getItem("jwt")
+        }
+    })
+    .then(res => res.json())
+    .then((result)=>{
+      setPic(result)
+      console.log(pic)
+  })
+  }, [])
+  
+
   return (
     <div className='profile'>
       {/* Profile frame */}
@@ -31,12 +46,10 @@ export default function Profile() {
 />
       {/* Gallery */}
       <div className="gallery">
-        <img src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
-        <img src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
-        <img src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
-        <img src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
-        <img src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
-        <img src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
+        {pic.map((pic)=>{
+          return <img key={pic._id} src={pic.photo} className='item'>
+          </img>
+        })}
       </div>
     </div>
   )
