@@ -30,7 +30,7 @@ export default function Profile() {
 
         {/* Profile data */}
         <div className="profile-data">
-          <h1> My profile 11</h1>
+          <h1> {JSON.parse(localStorage.getItem("user")).name}</h1>
           <div className="profile-info" style={{display:'flex'}}>
             <p>5 post</p>
             <p>5 follower</p>
