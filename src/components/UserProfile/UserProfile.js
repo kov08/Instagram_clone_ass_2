@@ -1,38 +1,31 @@
 import React,{useEffect, useState} from 'react'
-import PostDetail from "../PostDetail/PostDetail"
+// import PostDetail from "../PostDetail/PostDetail"
 import './styles.css'
+import { useParams } from "react-router-dom"
 
-export default function Profile() {
-  const [pic, setPic] = useState([])
-  const [show, setShow] = useState(false)
-  const [posts, setPosts] = useState([])
-
-  // To Show and hide comments
-  const toggleDetails = (posts) => {
-    if(show){
-      setShow(false);
-    }else{
-      setShow(true);
-      setPosts(posts)
-      // console.log(item)
-    }
-  }
-  
-
+export default function UserProfile() {
+    const{ userid } = useParams()
+    // console.log(userid)
+    const [user, setUser] = useState("")
+    const [posts, setPosts] = useState([])
+ 
   useEffect(() => {
-    fetch("http://localhost:5000/myposts",{
+    fetch(`http://localhost:5000/user/${userid}`,{
       headers:{
         Authorization: "Bearer "+localStorage.getItem("jwt")
         }
     })
-    .then(res => res.json())
-    .then((result)=>{
-      setPic(result)
-      console.log(pic)
-  })
-  }, [])
-  
+    .then((res) => res.json())
+    .then((result) => {
+        console.log(result)
+      setUser(result.user)
+      setPosts(result.post)
 
+    //   console.log(posts)
+    // console.log(result.user)
+    });
+  }, []);
+  
   return (
     <div className='profile'>
       {/* Profile frame */}
@@ -45,7 +38,8 @@ export default function Profile() {
 
         {/* Profile data */}
         <div className="profile-data">
-          <h1> {JSON.parse(localStorage.getItem("user")).name}</h1>
+          <h1> {user.name} </h1>
+          
           <div className="profile-info" style={{display:'flex'}}>
             <p>5 post</p>
             <p>5 follower</p>
@@ -61,15 +55,15 @@ export default function Profile() {
 />
       {/* Gallery */}
       <div className="gallery">
-        {pic.map((pic)=>{
+        {posts.map((pic)=>{
           return <img key={pic._id} src={pic.photo} 
-          onClick={() => {toggleDetails(pic)}}
+        //   onClick={() => {toggleDetails(pic)}}
           className='item'>
           </img>
         })}
       </div>
-      {show &&
-      <PostDetail item={posts} toggleDetails={toggleDetails}/>}
+      {/* {show &&
+      <PostDetail item={posts} toggleDetails={toggleDetails}/>} */}
 
     </div>
   )

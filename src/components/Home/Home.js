@@ -12,7 +12,7 @@ export default function Home() {
   const [item, setItem] = useState([])
 
   // Tost function
-  const notify_error = (msg) => toast.error(msg)
+  // const notify_error = (msg) => toast.error(msg)
   const notify_success = (msg) => toast.success(msg)
 
 
@@ -29,7 +29,7 @@ export default function Home() {
       },
     }).then(res => res.json())
     // .then(result => console.log(result))
-    .then(result => setData(result))
+    .then(result => {console.log(result); setData(result)})
     .catch(err => console.log(err))
   }, [])
 
@@ -38,9 +38,9 @@ export default function Home() {
     if(show){
       setShow(false);
     }else{
+      setShow(true);
       setItem(posts)
       // console.log(item)
-      setShow(true);
     }
   }
 
