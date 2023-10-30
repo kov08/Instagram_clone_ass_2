@@ -1,11 +1,13 @@
 import React,{useEffect, useState} from 'react'
 import PostDetail from "../PostDetail/PostDetail"
 import './styles.css'
+import ProfilePic from '../ProfilPic/ProfilePic'
 
 export default function Profile() {
   const [pic, setPic] = useState([])
   const [show, setShow] = useState(false)
   const [posts, setPosts] = useState([])
+  const [changePic, setChangePic] = useState(false)
 
   // To Show and hide comments
   const toggleDetails = (posts) => {
@@ -18,6 +20,13 @@ export default function Profile() {
     }
   }
   
+  const changeProfile = () => {
+    if(changePic){
+      setChangePic(false)
+    }else{
+      setChangePic(true)
+    }
+  }
 
   useEffect(() => {
     fetch("http://localhost:5000/myposts",{
@@ -40,7 +49,7 @@ export default function Profile() {
         
         {/* Profile Pic */}
         <div className="profile-pic">
-          <img src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
+          <img onClick={changeProfile} src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
         </div>
 
         {/* Profile data */}
@@ -69,8 +78,18 @@ export default function Profile() {
         })}
       </div>
       {show &&
-      <PostDetail item={posts} toggleDetails={toggleDetails}/>}
+      <PostDetail item={posts} toggleDetails={toggleDetails}/>
+      }
+      {
+        changePic &&
+        <ProfilePic />
+      }
 
     </div>
   )
 }
+
+
+// Profile name is not appearing
+// profile pic cannot be changed!!!
+// Share post user name is not showing!

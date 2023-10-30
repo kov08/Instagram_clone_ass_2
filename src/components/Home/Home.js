@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { toast } from 'react-toastify';
 import './styles.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Home() {
   const navigate = useNavigate();
@@ -10,6 +10,8 @@ export default function Home() {
   const [comment, setComment] = useState("")
   const [show, setShow] = useState(false)
   const [item, setItem] = useState([])
+  let limit = 4
+  let skip = 0
 
   // Tost function
   // const notify_error = (msg) => toast.error(msg)
@@ -21,17 +23,34 @@ export default function Home() {
     if(!token){
       navigate("./signup")
     }  
+    fetchPosts()
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
+  const fetchPosts = () => {
     // Fetching all posts
-    fetch("http://localhost:5000/allposts",{
+    fetch(`http://localhost:5000/allposts?limit=${limit}&skip=${skip}`,{
       headers: {
         Authorization: "Bearer "+ localStorage.getItem("jwt")        
       },
     }).then(res => res.json())
     // .then(result => console.log(result))
-    .then(result => {console.log(result); setData(result)})
-    .catch(err => console.log(err))
-  }, [])
+      .then(result => {setData((data) =>[...data,...result]);
+        //  console.log(result)
+        })
+    // .then(result => {setData(result); console.log(result)})
+      .catch(err => console.log(err))
+  }
+
+  const handleScroll = () =>{
+    if(document.documentElement.clientHeight + window.pageYOffset >= document.documentElement.scrollHeight){
+      skip = skip + 4
+      fetchPosts()
+    }
+  }
 
   // To Show and hide comments
   const toggleComment = (posts) => {
@@ -137,7 +156,11 @@ export default function Home() {
           <div className="card-pic">
             <img src="https://math-media.byjusfutureschool.com/bfs-math/2022/07/04185628/Asset-1-8-300x300.png" alt="" />
           </div>
-            <h5>{posts.postedBy.name}</h5>
+            <h5>
+              <Link to={`/profile/${posts.postedBy._id}`}>
+                {posts.postedBy.name}
+              </Link>
+              </h5>
         </div>
         {/* card image */}
         <div className="card-image">

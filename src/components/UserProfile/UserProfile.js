@@ -41,7 +41,7 @@ export default function UserProfile() {
           <h1> {user.name} </h1>
           
           <div className="profile-info" style={{display:'flex'}}>
-            <p>5 post</p>
+            <p>{posts.length} post</p>
             <p>5 follower</p>
             <p>5 following</p>
           </div>
