@@ -1,6 +1,7 @@
 img{
     width : 8%;
-    object-fit : contain
+    object-fit : contain;
+    
 }
 
 .navbar{
@@ -9,6 +10,7 @@ img{
     box-shadow: 1px 5px 5px #e0dcdc;
     /* background-image: url('../../img/insta_background.jpg');
     background-size: cover; */
+        
 }
 
 ul{

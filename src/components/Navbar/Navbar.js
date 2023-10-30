@@ -14,8 +14,9 @@ export default function Navbar({login}) {
     if(login || token){
       return[
         <>
-        <Link to="./profile"><li>Profile</li></Link>
+        <Link to="./"><li>Feed</li></Link>
         <Link to="./createPost"><li>Create Post</li></Link>
+        <Link to="./profile"><li>Profile</li></Link>
         <Link to={""}>
           <button className="primaryBtn" onClick={()=>setModalOpen(true)}>
             Log out
